@@ -28,6 +28,6 @@
       ]
     }
   },
-  "include": ["src"],
+  "include": ["src", "src/_root/pages/.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

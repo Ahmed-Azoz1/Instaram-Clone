@@ -210,3 +210,64 @@ export async function getRecentPosts(){
     if(!posts) throw Error;
     return posts;
 }
+
+
+// ============================== Like Post ==============================
+export async function likePost(postId:string,likesArray:string[]){
+    try {
+        const data = {
+            likes:likesArray
+        }
+        const updatedPost = await databases.updateDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.postCollectionId,
+            postId,
+            data,
+        )
+        if(!updatedPost) throw Error;
+        return updatedPost;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+// ============================== Save Post ==============================
+export async function savePost(postId:string,userId:string){
+    try {
+        const data = {
+            user:userId,
+            post:postId,
+        }
+        const updatedPost = await databases.createDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.saveCollectionId,
+            ID.unique(),
+            data,
+        )
+        if(!updatedPost) throw Error;
+        return updatedPost;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+// ============================== Delete Save Post ==============================
+export async function deleteSavedPost(savedRecordId:string){
+    try {
+        
+        const statusCode = await databases.deleteDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.saveCollectionId,
+            savedRecordId,
+        )
+        if(!statusCode) throw Error;
+        return {status:'OK'};
+
+    } catch (error) {
+        console.log(error);
+    }
+}

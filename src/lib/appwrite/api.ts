@@ -76,6 +76,8 @@ export async function getAccount() {
     }
 }
 
+
+
 // ============================== GET Current ACCOUNT ==============================
 
 export async function getCurrentUser(){
@@ -121,28 +123,30 @@ export async function createPost(post:INewPost){
         // Save Post to Database
         if(!uploadedFile) throw Error;
         // Get File Url
-        const fileUrl = getFilePreview(uploadedFile.$id)
+        const fileUrl = await getFilePreview(uploadedFile.$id)
         if(!fileUrl) {
             deleteFile(uploadedFile.$id);
             throw Error;
         }
         // Convert tags in an array
-        const tags = post.tags?.replace(/ /g,'').split(',') || [];
+        const tags = post.tags?.replace(/ /g, "").split(",") || [];;
 
-        // Save Post to Database
+        // Data
+        const data = {
+            creator: post.userId,
+            caption: post.caption,
+            imageUrl: fileUrl,
+            imageId: uploadedFile.$id,
+            location: post.location,
+            tags: tags,
+        }
+        // Create Post to Database
         const newPost = await databases.createDocument(
             appwriteConfig.databaseId,
             appwriteConfig.postCollectionId,
             ID.unique(),
-            {
-                creator:post.userId,
-                caption:post.caption,
-                imageUrl:fileUrl,
-                imageId:uploadedFile.$id,
-                location:post.location,
-                tags:tags
-            }
-        )
+            data,
+        );
 
         if(!newPost) {
             await deleteFile(uploadedFile.$id)
@@ -169,7 +173,7 @@ export async function uploadFile(file: File) {
     }
 }
 
-export async function getFilePreview(fileId:string){
+export function getFilePreview(fileId:string){
     try {
         const fileUrl = storage.getFilePreview(
             appwriteConfig.storageId,
@@ -192,4 +196,17 @@ export async function deleteFile(fileId:string){
     } catch (error) {
         console.log(error)
     }
+}
+
+
+
+// ============================== GET Post ==============================
+export async function getRecentPosts(){
+    const posts = await databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.postCollectionId,
+        [Query.orderDesc('$createdAt'),Query.limit(20)]
+    )
+    if(!posts) throw Error;
+    return posts;
 }

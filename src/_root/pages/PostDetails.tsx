@@ -1,4 +1,6 @@
 import Loader from "@/components/shared/Loader";
+import PostStats from "@/components/shared/PostStats";
+import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
 import { useGetPostById } from "@/lib/react-query/queriesAndMutations"
 import { formatDateString } from "@/lib/utils";
@@ -12,6 +14,10 @@ const PostDetails = () => {
     const {id} = useParams();
     const {data:post,isPending} = useGetPostById(id||'');
     const {user} = useUserContext();
+
+    const handleDeletPost = ()=>{
+
+    }
 
 
     return (
@@ -41,12 +47,35 @@ const PostDetails = () => {
                                     </div>
                                 </Link>
 
-                                <div className="flex-center gap-4">
+                                <div className="flex-center">
                                     <Link className={`${user.id !== post?.creator.$id && 'hidden'}`} to={`/update-post/${post?.$id}`}>
                                         <img width={24} height={24} src="/assets/icons/edit.svg" alt="edit" />
                                     </Link>
+
+                                    <Button className={`ghost_details-delete_btn ${user.id !== post?.creator.$id && 'hidden'}`} onClick={handleDeletPost} variant='ghost' >
+                                        <img width={24} height={24} src="/assets/icons/delete.svg" alt="delete" />
+                                    </Button>
                                 </div>
 
+                            </div>
+
+                            <hr className="border w-full border-dark-4/80" />
+
+                            <div className="flex flex-col flex-1 w-full smal-medium lg:base-regular">
+                                <p>{post?.caption}</p>
+                                <ul className="flex gap-1 mt-2">
+                                    {post?.tags?.map((tag:string)=>{
+                                        return(
+                                            <li key={tag} className="text-light-3">
+                                                #{tag}
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </div>
+
+                            <div className="w-full">
+                                <PostStats  post={post} userId={user.id}/>
                             </div>
 
                         </div>

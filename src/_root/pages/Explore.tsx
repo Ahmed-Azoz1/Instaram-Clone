@@ -56,7 +56,7 @@ const Explore = () => {
             <div className="flex flex-wrap gap-9 w-full max-w-5xl">
                 {shouldShowSearchResults ? 
                 (
-                    <SearchResults />
+                    <SearchResults isSearchFetching={isSearchFetching} searchedPosts={searchedPosts} />
                 )
                 : shouldShowPosts ?
                 (
@@ -67,6 +67,16 @@ const Explore = () => {
                     
                 }
             </div>
+
+            {
+                hasNextPage && !searchValue &&
+                (
+                    <div ref={ref} className="mt-10">
+                        <Loader />
+                    </div>
+                ) :
+                ()
+            }
 
         </div>
     )

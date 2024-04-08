@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { ProfileValidation } from "@/lib/validation";
 import ProfileUploader from "@/components/shared/ProfileUploader";
+import { Helmet } from "react-helmet-async";
 
 
 const UpdateProfile = () => {
@@ -70,6 +71,12 @@ const UpdateProfile = () => {
 
 
     return (
+        <>
+        <Helmet>
+            <title>Update-Profile</title>
+            <meta name="description" content="Instagram-Clone"/>
+        </Helmet>
+
         <div className="flex flex-1">
             <div className="common-container">
                 <div className="flex-start gap-3 justify-start w-full max-w-5xl">
@@ -190,7 +197,8 @@ const UpdateProfile = () => {
                 </form>
                 </Form>
             </div>
-    </div>
+        </div>
+        </>
     )
 }
 

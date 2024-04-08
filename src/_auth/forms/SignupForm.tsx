@@ -10,6 +10,7 @@ import { Link,useNavigate } from "react-router-dom"
 import { useToast } from "@/components/ui/use-toast"
 import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations"
 import { useUserContext } from "@/context/AuthContext"
+import { Helmet } from "react-helmet-async"
 
 
 
@@ -65,6 +66,12 @@ const SignupForm = () => {
 
     return (
         <>
+
+            <Helmet>
+                <title>Instagram-Clone | Sign Up</title>
+                <meta name="description" content="Instagram-Clone"/>
+            </Helmet>
+
             <Form {...form}>
                 <div className="sm:w-420 flex-center flex-col">
                     <img src="/assets/images/logo.svg" alt="logo" />

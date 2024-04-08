@@ -1,8 +1,15 @@
 import PostForm from "@/components/forms/PostForm"
+import { Helmet } from "react-helmet-async"
 
 
 const CreatePost = () => {
     return (
+        <>
+        <Helmet>
+            <title>Instagram-Clone | CreatePost</title>
+            <meta name="description" content="Instagram-Clone"/>
+        </Helmet>
+
         <div className="flex flex-1">
             <div className="common-container">
                 <div className="max-w-5xl flex-start gap-3 justify-start w-full">
@@ -13,6 +20,7 @@ const CreatePost = () => {
                 <PostForm action="Create"/>
             </div>
         </div>
+        </>
     )
 }
 

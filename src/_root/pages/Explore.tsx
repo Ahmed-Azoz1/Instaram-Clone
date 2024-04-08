@@ -6,6 +6,7 @@ import { useGetPosts, useSearchPosts } from "@/lib/react-query/queriesAndMutatio
 import useDebounce from "@/hooks/useDebounce";
 import Loader from "@/components/shared/Loader";
 import { useInView } from "react-intersection-observer";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -39,6 +40,12 @@ const Explore = () => {
 
 
     return (
+        <>
+        <Helmet>
+            <title>Instagram-Clone | Explore</title>
+            <meta name="description" content="Instagram-Clone"/>
+        </Helmet>
+
         <div className="explore-container">
             <div className="explore-inner_container">
                 <h3 className="h3-bold md:h2-bold w-full">
@@ -88,6 +95,7 @@ const Explore = () => {
             }
 
         </div>
+        </>
     )
 }
 

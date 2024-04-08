@@ -5,6 +5,7 @@ import { useUserContext } from "@/context/AuthContext";
 import Loader from "@/components/shared/Loader";
 import GridPostList from "@/components/shared/GridPostList";
 import { useGetUserById } from "@/lib/react-query/queriesAndMutations";
+import { Helmet } from "react-helmet-async";
 
 interface StabBlockProps {
     value: string | number;
@@ -36,6 +37,12 @@ const Profile = () => {
 
 
     return (
+        <>
+        <Helmet>
+            <title>Instagram-Clone | Profile</title>
+            <meta name="description" content="Instagram-Clone"/>
+        </Helmet>
+
         <div className="profile-container">
             <div className="profile-inner_container">
             <div className="flex xl:flex-row flex-col max-xl:items-center flex-1 gap-7">
@@ -136,7 +143,8 @@ const Profile = () => {
             )}
         </Routes>
         <Outlet />
-    </div>
+        </div>
+        </>
     );
 }
 

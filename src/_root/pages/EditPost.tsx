@@ -1,6 +1,7 @@
 import PostForm from "@/components/forms/PostForm"
 import Loader from "@/components/shared/Loader";
 import { useGetPostById } from "@/lib/react-query/queriesAndMutations";
+import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom"
 
 
@@ -20,6 +21,12 @@ const EditPost = () => {
     );
 
     return (
+        <>
+        <Helmet>
+            <title>Instagram-Clone | EditPost</title>
+            <meta name="description" content="Instagram-Clone"/>
+        </Helmet>
+
         <div className="flex flex-1">
             <div className="common-container">
                 <div className="max-w-5xl flex-start gap-3 justify-start w-full">
@@ -30,6 +37,7 @@ const EditPost = () => {
                 {isLoading ? <Loader /> : <PostForm action="Update" post={post} />}
             </div>
         </div>
+        </>
     )
 }
 

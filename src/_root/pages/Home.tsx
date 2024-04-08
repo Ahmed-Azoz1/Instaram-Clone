@@ -2,6 +2,7 @@ import Loader from "@/components/shared/Loader";
 import PostCard from "@/components/shared/PostCard";
 import { useGetRecentPosts } from "@/lib/react-query/queriesAndMutations";
 import { Models } from "appwrite";
+import { Helmet } from "react-helmet-async";
 
 
 const Home = () => {
@@ -10,6 +11,12 @@ const Home = () => {
 
 
     return (
+    <>
+        <Helmet>
+            <title>Instagram-Clone | Home</title>
+            <meta name="description" content="Instagram-Clone"/>
+        </Helmet>
+
         <div className="flex flex-1">
             <div className="home-container">
                 <div className="home-posts">
@@ -36,6 +43,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

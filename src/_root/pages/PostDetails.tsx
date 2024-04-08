@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
 import { useGetPostById } from "@/lib/react-query/queriesAndMutations"
 import { formatDateString } from "@/lib/utils";
+import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
 
 
@@ -21,6 +22,12 @@ const PostDetails = () => {
 
 
     return (
+        <>
+        <Helmet>
+            <title>Instagram-Clone | PostDetails</title>
+            <meta name="description" content="Instagram-Clone"/>
+        </Helmet>
+
         <div className="post_details-container">
             { isPending ? 
                 <Loader /> :
@@ -84,6 +91,7 @@ const PostDetails = () => {
                 )
             }
         </div>
+        </>
     )
 }
 

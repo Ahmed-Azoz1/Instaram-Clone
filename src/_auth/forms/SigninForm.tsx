@@ -41,7 +41,6 @@ const SigninForm = () => {
             email:values.email,
             password:values.password,
         })
-        console.log(session)
         if(!session){
             return toast({title:'Sign in failed.Please try again.'})
         }
@@ -50,7 +49,6 @@ const SigninForm = () => {
 
         if(isLoggedIn){
             form.reset();
-            console.log('navigat')
             navigate('/');
         }else{
             toast({title:'Sign up failed.Please try again.'})

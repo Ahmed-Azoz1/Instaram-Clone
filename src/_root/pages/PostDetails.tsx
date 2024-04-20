@@ -2,10 +2,10 @@ import Loader from "@/components/shared/Loader";
 import PostStats from "@/components/shared/PostStats";
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
-import { useGetPostById } from "@/lib/react-query/queriesAndMutations"
+import { useDeletePost, useGetPostById} from "@/lib/react-query/queriesAndMutations"
 import { formatDateString } from "@/lib/utils";
 import { Helmet } from "react-helmet-async";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 
 
@@ -13,11 +13,17 @@ import { Link, useParams } from "react-router-dom";
 const PostDetails = () => {
 
     const {id} = useParams();
+    const navigate = useNavigate();
     const {data:post,isPending} = useGetPostById(id||'');
     const {user} = useUserContext();
 
-    const handleDeletPost = ()=>{
 
+    const { mutate: deletePost } = useDeletePost();
+
+
+    const handleDeletePost = ()=>{
+        deletePost({ postId: id, imageId: post?.imageId });
+        navigate(-1);
     }
 
 
@@ -59,7 +65,7 @@ const PostDetails = () => {
                                         <img width={24} height={24} src="/assets/icons/edit.svg" alt="edit" />
                                     </Link>
 
-                                    <Button className={`ghost_details-delete_btn ${user.id !== post?.creator.$id && 'hidden'}`} onClick={handleDeletPost} variant='ghost' >
+                                    <Button className={`ghost_details-delete_btn ${user.id !== post?.creator.$id && 'hidden'}`} onClick={handleDeletePost} variant='ghost' >
                                         <img width={24} height={24} src="/assets/icons/delete.svg" alt="delete" />
                                     </Button>
                                 </div>
